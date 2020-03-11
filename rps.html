@@ -3,9 +3,48 @@
   <head>
     <meta charset="UTF-8">
     <title>title</title>
+
+    <style>
+	.wrapper {
+	  display: grid;
+	  grid-template-columns: repeat(3, 1fr);
+	  justify-content: center;
+	  align-items: center;
+	}
+
+	.choice {
+		/*margin: 15px;*/
+		width: 100px;
+		height: 100px;
+		border-radius: 5px;
+		border: 1px solid black;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.rock {
+		background-color: #88969e;
+	}
+
+	.paper {
+		background-color: #f5e29f;
+	}
+
+	.scissors {
+		background-color: #eb4034;
+	}
+
+
+    </style>
   </head>
   <body>
 	
+	<div class="wrapper">
+	  <div class="choice rock">Rock</div>
+	  <div class="choice paper">Paper</div>
+	  <div class="choice scissors">Scissors</div>
+	</div>
 	
 	<script src="script.js"></script>
   </body>

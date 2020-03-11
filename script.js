@@ -38,36 +38,73 @@ function playRound(playerSelection, computerSelection) {
 	}
 }
 
-function game() {
-	let player_score = 0;
-	let computer_score = 0;
-	let outcome;
-	let playerSelection = 'rock'
-	//let playerSelection = prompt("Choose a move.", "Rock");
-	let computerSelection;
+// function game() {
+// 	let player_score = 0;
+// 	let computer_score = 0;
+// 	let outcome;
+// 	let playerSelection = playerPlay();
+// 	//let playerSelection = prompt("Choose a move.", "Rock");
+// 	let computerSelection;
 
-	for (let i = 0; i < 5; i++) {
-		computerSelection = computerPlay();
-		outcome = playRound(playerSelection, computerSelection);
-		if (outcome==="player") {
-			player_score++;
-		} else if (outcome==="computer") {
-			computer_score++;
-		} else {
-			player_score++;
-			computer_score++;
-		}
-	}
+// 	for (let i = 0; i < 5; i++) {
+// 		computerSelection = computerPlay();
+// 		outcome = playRound(playerSelection, computerSelection);
+// 		if (outcome==="player") {
+// 			player_score++;
+// 		} else if (outcome==="computer") {
+// 			computer_score++;
+// 		} else {
+// 			player_score++;
+// 			computer_score++;
+// 		}
+// 	}
 
-	console.log("player score: " + player_score + ", computer score: " + computer_score);
+// 	console.log("player score: " + player_score + ", computer score: " + computer_score);
 
-	if (player_score > computer_score) {
-		console.log("Player wins")
-	} else if (player_score < computer_score) {
-		console.log("Computer wins")
-	} else {
-		console.log("Draw");
-	}
+// 	if (player_score > computer_score) {
+// 		console.log("Player wins")
+// 	} else if (player_score < computer_score) {
+// 		console.log("Computer wins")
+// 	} else {
+// 		console.log("Draw");
+// 	}
+// }
+
+// game();
+
+// Style elements
+
+const scissors = document.getElementsByClassName("scissors")[0];
+const rock = document.getElementsByClassName("rock")[0];
+const paper = document.getElementsByClassName("paper")[0];
+
+let buttons = [rock, paper, scissors];
+
+let start_colours = ["#88969e","#f5e29f","#eb4034"]
+let interact_colours = ["#b1b2b3", "#f7edc8", "#e88079"]
+for (let i = 0; i < buttons.length; i++) {
+	buttons[i].addEventListener("mouseover", () => {
+		buttons[i].style.backgroundColor = interact_colours[i];
+	})
+
+	buttons[i].addEventListener("mouseleave", () => {
+		buttons[i].style.backgroundColor = start_colours[i];
+	})
+
+	buttons[i].addEventListener("mousedown", () => {
+		buttons[i].style.backgroundColor = start_colours[i];
+	})
+
+	buttons[i].addEventListener("mouseup", () => {
+		buttons[i].style.backgroundColor = interact_colours[i];
+	})
+
+	buttons[i].addEventListener("click", () => {
+		playerSelection = buttons[i].textContent;
+		playRound(playerSelection, computerPlay());
+	});
 }
 
-game();
+function playerPlay() {
+
+}
