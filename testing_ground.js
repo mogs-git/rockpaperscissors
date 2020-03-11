@@ -6,6 +6,8 @@ let s1 = selection.toUpperCase().slice(0,1).concat(selection.toLowerCase().slice
 
 output = s1;
 
+let p = prompt("Do I work?", "Maybe");
+
 function check_input(selection) {
 	let good_answers = ["Rock", "Paper", "Scissors"];
 

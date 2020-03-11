@@ -43,6 +43,7 @@ function game() {
 	let computer_score = 0;
 	let outcome;
 	let playerSelection = 'rock'
+	//let playerSelection = prompt("Choose a move.", "Rock");
 	let computerSelection;
 
 	for (let i = 0; i < 5; i++) {
