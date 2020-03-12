@@ -14,6 +14,10 @@ function check_input(selection) {
 	return good_answers.includes(selection);
 }
 
+let player_score = 0;
+let computer_score = 0;
+
+
 function playRound(playerSelection, computerSelection) {
 	playerSelection = clean_input(playerSelection);
 	computerSelection = clean_input(computerSelection);
@@ -25,15 +29,15 @@ function playRound(playerSelection, computerSelection) {
 	}
 
 	if (playerSelection === computerSelection) {
-		console.log("DRAW! C: " + computerSelection + " P: " + playerSelection);
+		result_summary.textContent = ("DRAW! \nComputer: " + computerSelection + " VERSUS Player: " + playerSelection);
 		return "draw";
 	} else if ((playerSelection === "Rock" && computerSelection === "Scissors") || 
 	(playerSelection === "Paper" && computerSelection === "Rock") ||
 	(playerSelection === "Scissors" && computerSelection === "Paper")) {
-		console.log("Player Wins! C: " + computerSelection + " P: " + playerSelection);
+		result_summary.textContent = ("Player Wins! \nComputer: " + computerSelection + " VERSUS Player: " + playerSelection);
 		return "player";	
 	} else {
-		console.log("Computer Wins! C: " + computerSelection + " P: " + playerSelection);
+		result_summary.textContent = ("Computer Wins! \nComputer: " + computerSelection + " VERSUS Player: " + playerSelection);
 		return "computer";
 	}
 }
@@ -82,6 +86,24 @@ let buttons = [rock, paper, scissors];
 
 let start_colours = ["#88969e","#f5e29f","#eb4034"]
 let interact_colours = ["#b1b2b3", "#f7edc8", "#e88079"]
+let result;
+
+const result_computer = document.createElement('div');
+const result_player = document.createElement('div');
+const result_summary = document.createElement('div');
+result_summary.setAttribute('style', 'white-space: pre;');
+result_summary.classList.add('summary');
+const result_container = document.getElementsByClassName('result_container')[0];
+const result_display = document.createElement('div');
+result_player.classList.add('score');
+result_computer.classList.add('score');
+result_display.classList.add('score_container')
+result_container.appendChild(result_display);
+result_display.appendChild(result_player);
+result_display.appendChild(result_computer);
+result_container.appendChild(result_summary);
+
+
 for (let i = 0; i < buttons.length; i++) {
 	buttons[i].addEventListener("mouseover", () => {
 		buttons[i].style.backgroundColor = interact_colours[i];
@@ -101,10 +123,21 @@ for (let i = 0; i < buttons.length; i++) {
 
 	buttons[i].addEventListener("click", () => {
 		playerSelection = buttons[i].textContent;
-		playRound(playerSelection, computerPlay());
+		result = playRound(playerSelection, computerPlay());
+		console.log("Result " + result)
+		if (result === "player") {
+			player_score+=1;
+			console.log(player_score);
+		} else if (result === "computer") {
+			computer_score++;
+		} else {
+			player_score++;
+			computer_score++;
+		}
+		result_player.textContent = "Player: " + player_score;
+		result_computer.textContent = "Computer: " + computer_score;
 	});
 }
 
-function playerPlay() {
 
-}
+
