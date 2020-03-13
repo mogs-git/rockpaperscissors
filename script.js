@@ -29,15 +29,15 @@ function playRound(playerSelection, computerSelection) {
 	}
 
 	if (playerSelection === computerSelection) {
-		result_summary.textContent = ("DRAW! \nComputer: " + computerSelection + " VERSUS Player: " + playerSelection);
+		result_summary.textContent = ("DRAW!");
 		return "draw";
 	} else if ((playerSelection === "Rock" && computerSelection === "Scissors") || 
 	(playerSelection === "Paper" && computerSelection === "Rock") ||
 	(playerSelection === "Scissors" && computerSelection === "Paper")) {
-		result_summary.textContent = ("Player Wins! \nComputer: " + computerSelection + " VERSUS Player: " + playerSelection);
+		result_summary.textContent = ("Player Wins!");
 		return "player";	
 	} else {
-		result_summary.textContent = ("Computer Wins! \nComputer: " + computerSelection + " VERSUS Player: " + playerSelection);
+		result_summary.textContent = ("Computer Wins!");
 		return "computer";
 	}
 }
@@ -84,25 +84,38 @@ const paper = document.getElementsByClassName("paper")[0];
 
 let buttons = [rock, paper, scissors];
 
+let button_names = ["Rock", "Paper", "Scissors"]
 let start_colours = ["#88969e","#f5e29f","#eb4034"]
 let interact_colours = ["#b1b2b3", "#f7edc8", "#e88079"]
 let result;
 
 const result_computer = document.createElement('div');
 const result_player = document.createElement('div');
+
 const result_summary = document.createElement('div');
 result_summary.setAttribute('style', 'white-space: pre;');
 result_summary.classList.add('summary');
+
 const result_container = document.getElementsByClassName('result_container')[0];
+const versus_container = document.getElementsByClassName('versus_container')[0];
+const summary_container = document.getElementsByClassName('summary_container')[0];
+
 const result_display = document.createElement('div');
+
 result_player.classList.add('score');
 result_computer.classList.add('score');
-result_display.classList.add('score_container')
-result_container.appendChild(result_display);
-result_display.appendChild(result_player);
-result_display.appendChild(result_computer);
-result_container.appendChild(result_summary);
 
+result_container.appendChild(result_player);
+result_container.appendChild(result_computer);
+
+const choice_player = document.createElement('div');
+const choice_computer = document.createElement('div');
+choice_player.classList.add('versus');
+choice_computer.classList.add('versus');
+versus_container.appendChild(choice_player);
+versus_container.appendChild(choice_computer);
+
+summary_container.appendChild(result_summary);
 
 for (let i = 0; i < buttons.length; i++) {
 	buttons[i].addEventListener("mouseover", () => {
@@ -121,10 +134,17 @@ for (let i = 0; i < buttons.length; i++) {
 		buttons[i].style.backgroundColor = interact_colours[i];
 	})
 
-	buttons[i].addEventListener("click", () => {
+	buttons[i].addEventListener("click", (e) => {
 		playerSelection = buttons[i].textContent;
-		result = playRound(playerSelection, computerPlay());
-		console.log("Result " + result)
+		computerSelection = computerPlay();
+		result = playRound(playerSelection, computerSelection);
+
+		choice_player.textContent = playerSelection;
+		choice_player.style.backgroundColor  = start_colours[button_names.indexOf(playerSelection)];
+
+		choice_computer.textContent = computerSelection;
+		choice_computer.style.backgroundColor  = start_colours[button_names.indexOf(computerSelection)];
+
 		if (result === "player") {
 			player_score+=1;
 			console.log(player_score);
